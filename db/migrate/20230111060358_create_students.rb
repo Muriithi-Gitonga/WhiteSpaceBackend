@@ -3,7 +3,8 @@ class CreateStudents < ActiveRecord::Migration[7.0]
     create_table :students do |t|
       t.integer :supervisor_id
       t.string :name
-      t.integer :lecture_id
+      t.string :username
+      t.integer :lecturer_id
       t.string :course
       t.date :start_date
       t.date :end_date
