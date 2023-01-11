@@ -1,5 +1,6 @@
 class Profile < ApplicationRecord
 
     def owner
-        "#{self.supervisor_id}: $#{self.student_id}"
-      end
+        "supervisor no #{self.supervisor_id}: student no #{self.student_id}"
+    end
+end
