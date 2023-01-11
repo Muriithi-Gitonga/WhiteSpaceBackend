@@ -4,6 +4,8 @@ class Supervisor < ApplicationRecord
   has_one :profile
   has_many :students
 
+  # validates :password, presence: true, confirmation: true, length: { minimum: 8 }, password_validation: true
+
   validates :username, presence: true, uniqueness: true
   validates :name, presence: true
   validates :password, presence: true, length: { minimum: 8 }
