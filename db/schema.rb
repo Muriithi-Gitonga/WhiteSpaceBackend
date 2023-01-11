@@ -10,6 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema[7.0].define(version: 2023_01_10_115838) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,6 +20,29 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_10_115838) do
     t.string "email"
     t.string "username"
     t.string "password_digest"
+=======
+<<<<<<< HEAD
+ActiveRecord::Schema[7.0].define(version: 2023_01_10_170420) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "lecturers", force: :cascade do |t|
+    t.text "name"
+    t.string "email"
+    t.text "institution"
+    t.text "password_digest"
+=======
+ActiveRecord::Schema[7.0].define(version: 2023_01_10_103256) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "profiles", force: :cascade do |t|
+    t.string "bio"
+    t.string "username"
+    t.integer "student_id"
+    t.integer "supervisor_id"
+>>>>>>> main
+>>>>>>> main
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
