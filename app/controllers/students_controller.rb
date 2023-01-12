@@ -1,5 +1,7 @@
 class StudentsController < ApplicationController
-    rescue_from ActiveRecord::RecordInvalid, with: :record_not_found
+    rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
+    skip_before_action :authorize, only:[:login, :create, :index]
+    wrap_parameters format: [:json]
 
     def index
         render json: Student.all
@@ -31,12 +33,12 @@ class StudentsController < ApplicationController
 
     private
 
-    def record_not_found
+    def record_invalid(invalid)
         render json: {errors: invalid.record.errors.full_messages}, status: :unprocessable_entity
     end
 
     def student_params
-         params.permit(:id, :name, :course, :start_date, :end_date, :department, :email, :username, :institution, :supervisor)
+         params.permit(:id, :name, :course, :start_date, :end_date, :department, :email, :username, :institution, :password, :lecturer_id, :supervisor_id)
     end
 
 

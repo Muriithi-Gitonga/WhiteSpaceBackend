@@ -20,6 +20,6 @@ Rails.application.routes.draw do
   resources :students
 
 
-  post "/login", to: "students#login"
-  post "/signup", to: "students#create"
+  post "/signin", to: "students#login"
+  post "/register", to: "students#create"
 end
