@@ -3,6 +3,7 @@ class Supervisor < ApplicationRecord
   has_many :tasks
   has_one :profile
   has_many :students
+  has_many :lecturers, through: :students
 
   # validates :password, presence: true, confirmation: true, length: { minimum: 8 }, password_validation: true
 
