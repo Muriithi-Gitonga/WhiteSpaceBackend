@@ -7,20 +7,24 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 #lecturer = Lecturer.new
-Lecturer.create!([{name: "Mary Kimani", institution: "University of Nairobi", email:"emanu@gmail.com"}, {name: "Gibson Bonareri", institution: "DayStar University", email:"emanu@gmail.com"}, {name: "John Maina", institution: "Mt Kenya University",email:"emanu@gmail.com"}])
-#Lecturer.create(name: "Mary Kimani").valid?
-#Lecturer.create(name: nil).valid?
+Lecturer.create([{name: "Mary Kimani", institution: "University of Nairobi", email:"emanu@gmail.com"}, {name: "Gibson Bonareri", institution: "DayStar University", email:"emanu@gmail.com"}, {name: "John Maina", institution: "Mt Kenya University",email:"emanu@gmail.com"}])
+#Lecturer.createname: "Mary Kimani").valid?
+#Lecturer.createname: nil).valid?
 
 
 
-Profile.create!(bio:"male",username:"kim",supervisor_id:1, student_id:1)
-Profile.create!(bio:"male" ,username:"mike" ,supervisor_id:2, student_id:2)
-Profile.create!(bio:"female" ,username:"cindy" ,supervisor_id:3, student_id:3)
-Profile.create!(bio:"female" ,username:"joy" ,supervisor_id:1, student_id:4)
-Profile.create!(bio:"male" ,username:"omosh" ,supervisor_id:2, student_id:5)
-Profile.create!(bio:"male" ,username:"juma" ,supervisor_id:4, student_id:6)
-Profile.create!(bio:"male" ,username:"manu" ,supervisor_id:2, student_id:7)
+Profile.create(bio:"male",username:"kim",supervisor_id:1, student_id:1)
+Profile.create(bio:"male" ,username:"mike" ,supervisor_id:2, student_id:2)
+Profile.create(bio:"female" ,username:"cindy" ,supervisor_id:3, student_id:3)
+Profile.create(bio:"female" ,username:"joy" ,supervisor_id:1, student_id:4)
+Profile.create(bio:"male" ,username:"omosh" ,supervisor_id:2, student_id:5)
+Profile.create(bio:"male" ,username:"juma" ,supervisor_id:4, student_id:6)
+Profile.create(bio:"male" ,username:"manu" ,supervisor_id:2, student_id:7)
 
 
-Supervisor.create!(name:"brian",username:"brian", email:"brianmanu@gmil.com", password:"123456789")
+Supervisor.create(name:"briann",username:"briann", email:"briannmanu@gmil.com", password:"123456789")
+Supervisor.create(name:"victor",username:"victor", email:"victormanu@gmil.com", password:"123456789")
+Supervisor.create(name:"mercyy",username:"mercyy", email:"mercyymanu@gmil.com", password:"123456789")
+Supervisor.create(name:"joan",username:"joan", email:"joanmanu@gmil.com", password:"123456789")
+
 
