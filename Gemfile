@@ -37,7 +37,7 @@ group :development do
   # gem "spring"
 end
 
-
+gem 'database_cleaner', '~> 2.0', '>= 2.0.1'
 # gem "jwt", "~> 2.6"
 
 # gem "bcrypt", "~> 3.1"
