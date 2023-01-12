@@ -1,7 +1,7 @@
 class SupervisorsController < ApplicationController
     rescue_from ActiveRecord::RecordInvalid, with: :invalid_credentials
     rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
-    skip_before_action :authorize, only:[:login, :create, :index]
+    skip_before_action :authorize, only:[:login, :create, :index, :show]
     def index 
       supervisors = Supervisor.all
       render json: supervisors
