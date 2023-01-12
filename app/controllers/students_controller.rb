@@ -8,8 +8,23 @@ class StudentsController < ApplicationController
     def create
         student = Student.create!(student_params)
 
-        return json: student
+        return json: student, status: :created
     end
+
+    def login
+        student = Student.find_by(params[:username])
+        #User#authenticate comes from BCrypt
+        if student && student.authenticate(params[:password])
+          # encode token comes from ApplicationController
+          token = encode_token( student_id: student.id )
+          render json: {student:student, token:token}, status: :accepted
+        else
+          render json: { message: 'Invalid username or password' }, status: :unauthorized
+        end
+    end
+
+
+
 
 
     
