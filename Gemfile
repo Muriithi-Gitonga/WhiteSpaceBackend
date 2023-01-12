@@ -14,7 +14,7 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem "jwt", "~> 2.5"
 # Use postgresql as the database for Active Record
-gem "pg", "~> 1.1"
+gem "pg"
 
 
 # Use the Puma web server [https://github.com/puma/puma]

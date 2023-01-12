@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :tasks
   resources :supervisors
 
   post "/login", to: "supervisors#login"
