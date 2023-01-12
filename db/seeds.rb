@@ -28,3 +28,10 @@ Supervisor.create(name:"mercyy",username:"mercyy", email:"mercyymanu@gmil.com", 
 Supervisor.create(name:"joan",username:"joan", email:"joanmanu@gmil.com", password:"123456789")
 
 
+Student.create(supervisor_id: 1, name:"Manu1", username: "Manu1", lecturer_id: 1,course: "BCOM", start_date: "1/1/2023", end_date: "1/4/2023", department: "COMMERCE", email:"manu1@gmail.com" "manu1@gmail.com",password:"123456789" , institution:"inst1" , lecturer_email:"lec1@gmail.com" )
+Student.create(supervisor_id: 2, name: "Manu2", username: "Manu2", lecturer_id: 2,course: "BCOM", start_date:"1/1/2023" , end_date:"1/4/2023" , department: "COMMERCE", email:"manu1@gmail.com" ,password:"123456789" , institution: "inst1" , lecturer_email: "lec1@gmail.com")
+Student.create(supervisor_id: 3, name: "Manu3", username: "Manu3", lecturer_id: 3,course:"IT" , start_date: "1/1/2023", end_date: "1/4/2023", department: "TECH", email:"manu1@gmail.com" ,password:"123456789" , institution: "inst1" , lecturer_email:"lec1@gmail.com" )
+Student.create(supervisor_id: 4, name: "Manu4", username: "Manu4", lecturer_id: 3,course: "ART", start_date: "1/1/2023", end_date:"1/4/2023" , department: "TECH", email:"manu1@gmail.com" ,password:"123456789" , institution:"inst1"  , lecturer_email:"lec1@gmail.com" )
+Student.create(supervisor_id: 5, name: "Manu5", username: "Manu5", lecturer_id: 4,course: "CODING", start_date: "1/1/2023", end_date: "1/4/2023", department:"TECH" , email:"manu1@gmail.com" ,password:"123456789" , institution:"inst1"  , lecturer_email: "lec1@gmail.com")
+Student.create(supervisor_id: 6, name: "Manu6", username: "Manu6", lecturer_id: 5,course: "PROGRAMMING", start_date: "1/1/2023", end_date: "1/4/2023", department:"TECH" , email:"manu1@gmail.com" ,password:"123456789" , institution: "inst1" , lecturer_email:"lec1@gmail.com" )
+Student.create(supervisor_id: 2, name: "Manu7", username: "Manu7", lecturer_id: 2,course: "TEACHING", start_date: "1/1/2023", end_date: "1/4/2023", department: "ART", email:"manu1@gmail.com" ,password:"123456789" , institution:"inst1"  , lecturer_email: "lec1@gmail.com")
