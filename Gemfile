@@ -38,6 +38,6 @@ group :development do
 end
 
 
-gem "jwt", "~> 2.6"
+# gem "jwt", "~> 2.6"
 
-gem "bcrypt", "~> 3.1"
+# gem "bcrypt", "~> 3.1"
