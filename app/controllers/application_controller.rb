@@ -30,7 +30,9 @@ class ApplicationController < ActionController::API
     render json: { message: 'Please log in' }, status: :unauthorized unless logged_in?
   end
 # end
-    before_action :authorized
+    # before_action :authorized
+# end
+    # before_action :authorized
   
     def encode_token(payload)
       # should store secret in env variable
@@ -69,3 +71,4 @@ class ApplicationController < ActionController::API
       render json: { message: 'Please log in' }, status: :unauthorized unless logged_in?
     end
 end
+# end
