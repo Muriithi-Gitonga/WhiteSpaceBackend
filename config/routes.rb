@@ -10,4 +10,9 @@ Rails.application.routes.draw do
   # get '/profile/:id', to: 'profiles#show'
 
   resources :profiles, only: [:index, :show]
+  resources :students
+
+
+  post "/login", to: "students#login"
+  post "/signup", to: "students#create"
 end
