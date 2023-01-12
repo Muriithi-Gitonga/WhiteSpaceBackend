@@ -10,19 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-# <<<<<<< HEAD
-# <<<<<<< HEAD
-ActiveRecord::Schema[7.0].define(version: 2023_01_10_115838) do
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
-  create_table "supervisors", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
-    t.string "username"
-    t.string "password_digest"
-=======
-ActiveRecord::Schema[7.0].define(version: 2023_01_10_170420) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_11_060358) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -31,24 +19,43 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_10_170420) do
     t.string "email"
     t.text "institution"
     t.text "password_digest"
-ActiveRecord::Schema[7.0].define(version: 2023_01_10_103256) do
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "profiles", force: :cascade do |t|
     t.string "bio"
     t.string "username"
     t.integer "student_id"
     t.integer "supervisor_id"
->>>>>>> main
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-=======
-ActiveRecord::Schema[7.0].define(version: 0) do
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  create_table "students", force: :cascade do |t|
+    t.integer "supervisor_id"
+    t.string "name"
+    t.string "username"
+    t.integer "lecturer_id"
+    t.string "course"
+    t.date "start_date"
+    t.date "end_date"
+    t.string "department"
+    t.string "email"
+    t.string "password_digest"
+    t.string "institution"
+    t.string "lecturer_email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
->>>>>>> WHIT-5-Student
+  create_table "supervisors", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "username"
+    t.string "password_digest"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
 end

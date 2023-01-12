@@ -8,7 +8,7 @@ class StudentsController < ApplicationController
     def create
         student = Student.create!(student_params)
 
-        return json: student, status: :created
+        render json: student, status: :created
     end
 
     def login
