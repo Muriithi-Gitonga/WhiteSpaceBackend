@@ -8,7 +8,7 @@ class SupervisorsController < ApplicationController
     end
     def show
       supervisor = Supervisor.find(params[:id])
-      render json:Supervisor
+      render json: supervisor
     end
 
     def create

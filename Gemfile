@@ -8,6 +8,9 @@ gem 'active_model_serializers'
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4"
 gem 'bcrypt', '~> 3.1.7'
+# gem 'password_strength', '~> 1.1', '>= 1.1.4'
+# gem 'password_validation', '~> 0.0.1'
+
 
 gem "jwt", "~> 2.5"
 # Use postgresql as the database for Active Record
@@ -26,6 +29,7 @@ gem "rack-cors"
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  gem 'rspec-rails', ">= 3.9.0"
 end
 
 group :development do
