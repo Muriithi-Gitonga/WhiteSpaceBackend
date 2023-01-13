@@ -6,16 +6,23 @@ import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
 import Box from '@mui/material/Box';
+import CreateStudentForm  from "./CreateStudentForm";
 
 
 // This will be placed in its own component such that the table can receive props. These props will be the JSON data from the backend 
 export default function MyStudents(props) {
+
+  const[displayedItem, setDisplayedItem] = React.useState("StudentsTable")
+
 
   React.useEffect(()=>{console.log(props.props.students)},[])
   const students = props.props.students
 
   function handleDelete(info) { console.log(info) }
   function handleViewProfile(info) { console.log(info) }
+
+
+
 
 
   const renderDeleteButton = (params) => {
@@ -80,26 +87,40 @@ const columns = [
 
 ];
 
-  return (
+function displayForm() { setDisplayedItem("Form")}
+
+function StudentsTable() {
+  return(
     <Grid item xs={12} >
-        <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }} > 
+    <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }} > 
 
-            <Box sx={{display:"flex", flexDirection:"row", justifyContent:"space-between"}}>
-            <Box sx={{px:2}}>
-                <Typography component="h3" variant="h6" gutterBottom> My Students </Typography>
-              </Box>
-              <Box >
-                <Button sx={{mb:2}} variant="outlined" color="primary" startIcon={ <AddIcon />} >  Enroll New Student </Button>
- 
-              </Box>
+        <Box sx={{display:"flex", flexDirection:"row", justifyContent:"space-between"}}>
+        <Box sx={{px:2}}>
+            <Typography component="h3" variant="h6" gutterBottom> My Students </Typography>
           </Box>
+          <Box >
+            <Button onClick={displayForm} sx={{mb:2}} variant="outlined" color="primary" startIcon={ <AddIcon />} >  Enroll New Student </Button>
+
+          </Box>
+      </Box>
 
 
-            <div style={{ height: 685, width: '100%' }}> 
-              <DataGrid rows={students} columns={columns} pageSize={10} rowsPerPageOptions={[5]}  />
-            </div>
-        </Paper>
-  </Grid>
+        <div style={{ height: 685, width: '100%' }}> 
+          <DataGrid rows={students} columns={columns} pageSize={10} rowsPerPageOptions={[5]}  />
+        </div>
+    </Paper>
+</Grid>
+  )
+}
 
-  );
+
+return(
+  <>
+    { displayedItem === "StudentsTable"? <StudentsTable /> : <CreateStudentForm />}
+  </>
+
+)
+    
+
+
 }
