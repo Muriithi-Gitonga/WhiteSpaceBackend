@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  supervisor_id: 1
+  name: MyString
+  lecture_id: 1
+  course: MyString
+  start_da: MyString
+
+two:
+  supervisor_id: 1
+  name: MyString
+  lecture_id: 1
+  course: MyString
+  start_da: MyString

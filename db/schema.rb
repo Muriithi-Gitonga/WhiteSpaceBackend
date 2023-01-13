@@ -10,15 +10,52 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_10_103256) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_11_060358) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "lecturers", force: :cascade do |t|
+    t.text "name"
+    t.string "email"
+    t.text "institution"
+    t.text "password_digest"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "profiles", force: :cascade do |t|
     t.string "bio"
     t.string "username"
-    t.integer "student_id"
-    t.integer "supervisor_id"
+    t.bigint "student_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["student_id"], name: "index_profiles_on_student_id"
+  end
+
+  create_table "students", force: :cascade do |t|
+    t.string "name"
+    t.string "username"
+    t.bigint "supervisor_id"
+    t.bigint "lecturer_id"
+    t.string "course"
+    t.date "start_date"
+    t.date "end_date"
+    t.string "department"
+    t.string "email"
+    t.string "password_digest"
+    t.string "institution"
+    t.string "lecturer_email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["lecturer_id"], name: "index_students_on_lecturer_id"
+    t.index ["supervisor_id"], name: "index_students_on_supervisor_id"
+  end
+
+  create_table "supervisors", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "username"
+    t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
