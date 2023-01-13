@@ -8,12 +8,11 @@ import AddIcon from '@mui/icons-material/Add';
 import Box from '@mui/material/Box';
 
 
-
-
-
-
 // This will be placed in its own component such that the table can receive props. These props will be the JSON data from the backend 
-export default function MyStudents() {
+export default function MyStudents(props) {
+
+  React.useEffect(()=>{console.log(props.props.students)},[])
+  const students = props.props.students
 
   function handleDelete(info) { console.log(info) }
   function handleViewProfile(info) { console.log(info) }
@@ -59,8 +58,8 @@ const columns = [
   { field: 'id', headerName: 'ID', width: 50 },
   { field: 'name', headerName: 'Name', width: 150 },
   { field: 'course', headerName: 'Course', width: 200 },
-  { field: 'startDate', headerName: 'Start Date', width: 100},
-  { field: 'endDate', headerName: 'End Date', width:100 },
+  { field: 'start_date', headerName: 'start_date', width: 100},
+  { field: 'end_date', headerName: 'end_date', width:100 },
   { field: 'department', headerName: 'Department', width: 150 },
   { field: 'email', headerName: 'Email', width:150},
   { field: 'institution', headerName: 'Institution', width:80 },
@@ -79,36 +78,8 @@ const columns = [
   disableClickEventBubbling: true,
 }
 
-
-
 ];
 
-const rows = [
-  { id: 1, name: 'Peter Maina',course:"Software Engineering",  startDate: "10/01/2024", endDate: "10/01/2024", department:"I.T", email:"kk21@gmail.com", institution:"JKUAT"},
-  { id: 2, name: 'Angela Kimathi',course:"Software Engineering",  startDate: "10/01/2024", endDate: "10/01/2024", department:"I.T", email:"kk21@gmail.com", institution:"JKUAT"},
-  { id: 3, name: 'Andrew Kamande',course:"Software Engineering",  startDate: "10/01/2024", endDate: "10/01/2024", department:"I.T", email:"kk21@gmail.com", institution:"JKUAT"},
-  { id: 4, name: 'Njeri Muguna',course:"Software Engineering",  startDate: "10/01/2024", endDate: "10/01/2024", department:"I.T", email:"kk21@gmail.com", institution:"JKUAT"},
-  { id: 5, name: 'Kalonzo Kyalo',course:"Software Engineering",  startDate: "10/01/2024", endDate: "10/01/2024", department:"I.T", email:"kk21@gmail.com", institution:"JKUAT"},
-  { id: 6, name: 'Musau Mwende',course:"Software Engineering",  startDate: "10/01/2024", endDate: "10/01/2024", department:"I.T", email:"kk21@gmail.com", institution:"JKUAT"},
-  { id: 7, name: 'Leslie Njora',course:"Software Engineering",  startDate: "10/01/2024", endDate: "10/01/2024", department:"I.T", email:"kk21@gmail.com", institution:"JKUAT"},
-  { id: 8, name: 'Princeton Mwenda',course:"Software Engineering",  startDate: "10/01/2024", endDate: "10/01/2024", department:"I.T", email:"kk21@gmail.com", institution:"JKUAT"},
-  { id: 9, name: 'Larry Madowo',course:"Software Engineering",  startDate: "10/01/2024", endDate: "10/01/2024", department:"I.T", email:"kk21@gmail.com", institution:"JKUAT"},
-  { id: 10, name: 'Karani Kiarie',course:"Software Engineering",  startDate: "10/01/2024", endDate: "10/01/2024", department:"I.T", email:"kk21@gmail.com", institution:"JKUAT"},
-  { id: 11, name: 'Derek Peterson',course:"Software Engineering",  startDate: "10/01/2024", endDate: "10/01/2024", department:"I.T", email:"kk21@gmail.com", institution:"JKUAT"},
-  { id: 12, name: 'Abdul Moha',course:"Software Engineering",  startDate: "10/01/2024", endDate: "10/01/2024", department:"I.T", email:"kk21@gmail.com", institution:"JKUAT"},
-  { id: 13, name: 'Chrispus Otieno',course:"Software Engineering",  startDate: "10/01/2024", endDate: "10/01/2024", department:"I.T", email:"kk21@gmail.com", institution:"JKUAT"},
-  { id: 14, name: 'Hannington Omwanza',course:"Software Engineering",  startDate: "10/01/2024", endDate: "10/01/2024", department:"I.T", email:"kk21@gmail.com", institution:"JKUAT"},
-  { id: 15, name: 'Eliud Ngendo',course:"Software Engineering",  startDate: "10/01/2024", endDate: "10/01/2024", department:"I.T", email:"kk21@gmail.com", institution:"JKUAT"},
-  { id: 16, name: 'James Lannnister',course:"Software Engineering",  startDate: "10/01/2024", endDate: "10/01/2024", department:"I.T", email:"kk21@gmail.com", institution:"JKUAT"},
-];
-
-
-
-
-
-
-
-  
   return (
     <Grid item xs={12} >
         <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }} > 
@@ -125,7 +96,7 @@ const rows = [
 
 
             <div style={{ height: 685, width: '100%' }}> 
-              <DataGrid rows={rows} columns={columns} pageSize={10} rowsPerPageOptions={[5]}  />
+              <DataGrid rows={students} columns={columns} pageSize={10} rowsPerPageOptions={[5]}  />
             </div>
         </Paper>
   </Grid>

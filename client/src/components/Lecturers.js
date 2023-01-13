@@ -9,8 +9,13 @@ import Box from '@mui/material/Box';
 
 
 
-export default function Lecturers() {
-    function handleDelete(info) { console.log(info) }
+export default function Lecturers(props) {
+
+  React.useEffect(()=>{console.log(props.props.lecturers)},[])
+  const lecturers = props.props.lecturers
+
+
+  function handleDelete(info) { console.log(info) }
 
 
   const renderDeleteButton = (params) => {
@@ -50,26 +55,7 @@ export default function Lecturers() {
         },
       ];
       
-      const rows = [
-        { id: 2, name: 'Lannister', email: 'Cersei', institution: "This is the solution", edit: "This is the comment" },
-        { id: 3, name: 'Lannister', email: 'Cersei', institution: "This is the solution", edit: "This is the comment" },
-        { id: 2, name: 'Lannister', email: 'Cersei', institution: "This is the solution", edit: "This is the comment" },
-        { id: 2, name: 'Lannister', email: 'Cersei', institution: "This is the solution", edit: "This is the comment" },
-        { id: 2, name: 'Lannister', email: 'Cersei', institution: "This is the solution", edit: "This is the comment" },
-        { id: 2, name: 'Lannister', email: 'Cersei', institution: "This is the solution", edit: "This is the comment" },
-        { id: 2, name: 'Lannister', email: 'Cersei', institution: "This is the solution", edit: "This is the comment" },
-        { id: 2, name: 'Lannister', email: 'Cersei', institution: "This is the solution", edit: "This is the comment" },
-        { id: 2, name: 'Lannister', email: 'Cersei', institution: "This is the solution", edit: "This is the comment" },
-        { id: 2, name: 'Lannister', email: 'Cersei', institution: "This is the solution", edit: "This is the comment" },
-        { id: 2, name: 'Lannister', email: 'Cersei', institution: "This is the solution", edit: "This is the comment" },
-        { id: 2, name: 'Lannister', email: 'Cersei', institution: "This is the solution", edit: "This is the comment" },
-        { id: 2, name: 'Lannister', email: 'Cersei', institution: "This is the solution", edit: "This is the comment" },
-        { id: 2, name: 'Lannister', email: 'Cersei', institution: "This is the solution", edit: "This is the comment" },
-        { id: 2, name: 'Lannister', email: 'Cersei', institution: "This is the solution", edit: "This is the comment" },
-        { id: 2, name: 'Lannister', email: 'Cersei', institution: "This is the solution", edit: "This is the comment" },
-        { id: 2, name: 'Lannister', email: 'Cersei', institution: "This is the solution", edit: "This is the comment" },
-      ];
-
+   
 
   return (
     <Grid item xs={12} >
@@ -83,7 +69,7 @@ export default function Lecturers() {
               </Box>
           </Box>
             <div style={{ height: 685, width: '100%' }}>
-                <DataGrid rows={rows} columns={columns} pageSize={10} rowsPerPageOptions={[5]}  />
+                <DataGrid rows={lecturers} columns={columns} pageSize={10} rowsPerPageOptions={[5]}  />
             </div>
         </Paper>
   </Grid>

@@ -26,17 +26,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_11_060358) do
   create_table "profiles", force: :cascade do |t|
     t.string "bio"
     t.string "username"
-    t.integer "student_id"
-    t.integer "supervisor_id"
+    t.bigint "student_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["student_id"], name: "index_profiles_on_student_id"
   end
 
   create_table "students", force: :cascade do |t|
-    t.integer "supervisor_id"
     t.string "name"
     t.string "username"
-    t.integer "lecturer_id"
+    t.bigint "supervisor_id"
+    t.bigint "lecturer_id"
     t.string "course"
     t.date "start_date"
     t.date "end_date"
@@ -47,6 +47,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_11_060358) do
     t.string "lecturer_email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["lecturer_id"], name: "index_students_on_lecturer_id"
+    t.index ["supervisor_id"], name: "index_students_on_supervisor_id"
   end
 
   create_table "supervisors", force: :cascade do |t|

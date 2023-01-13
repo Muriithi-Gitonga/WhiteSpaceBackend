@@ -9,6 +9,23 @@ import GroupsIcon from '@mui/icons-material/Groups';
 
 function Navbar(props) {
   const pages = ['Home', 'About', 'Reviews', 'Contact'];
+  const [navbarButton, setNavbarButton] = React.useState()
+
+  React.useEffect(()=>{
+    if(props.props==="supervisor") {setNavbarButton(LogOutButton)}
+  },
+  
+  [])
+
+  const LogOutButton = () => {
+    return(
+      <Box >
+      <Button href="/" variant="outlined" sx={{ my: 2, color: 'white', display: 'block', borderColor:"white", mr:2}}> Logout </Button> 
+      </Box>
+    )
+  }
+
+
 
   return (
     <AppBar position="static">
@@ -24,14 +41,7 @@ function Navbar(props) {
           <Box sx={{ flexGrow: 1, display: { md: 'flex'}, ml:20}}>
             { pages.map((page) => ( <Button href={page} key={page} sx={{ my: 2, mx:5, color: 'white', display: 'block' }}> {page} </Button> )) }
           </Box>
-
-          { props.props === "login"? 
-          null
-            :
-          <Box >
-            <Button href="/login" variant="outlined" sx={{ my: 2, color: 'white', display: 'block', borderColor:"white", mr:2}}> Login </Button> 
-          </Box>
-          }
+          { navbarButton }
         </Toolbar>
       </Container>
     </AppBar>

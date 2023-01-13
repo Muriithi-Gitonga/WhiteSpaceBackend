@@ -10,7 +10,6 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Navbar from '../components/Navbar';
 import { CssBaseline } from '@mui/material';
-// import GroupsIcon from '@mui/icons-material/Groups';
 
 
 // Copyright information
@@ -26,14 +25,28 @@ const theme = createTheme();
 
 // When user clicks Sign in, the data in the form is logged in the console.
 export default function Login() {
+
   const handleSubmit = (event) => {
+
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+
     console.log({
       email: data.get('email'),
       password: data.get('password'),
     });
-  };
+
+    fetch('/login', {
+      method: "POST",
+      headers: { "Content-Type": "application/json "},
+      body: JSON.stringify({
+        email: data.get('email'),
+        password: data.get('password'),
+      })
+    })
+    .then(res => res.json()).then(console.log)
+
+    };
 
   return (
     <ThemeProvider theme={theme}>
@@ -69,7 +82,11 @@ export default function Login() {
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField margin="normal" required fullWidth id="email" label="Email Address" name="email" autoComplete="email" autoFocus />
               <TextField margin="normal" required fullWidth name="password" label="Password" type="password" id="password" autoComplete="current-password" />
-              <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} > Sign In </Button>
+              
+                <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} > Sign In </Button>
+   
+              
+              
               <Copyright sx={{ mt: 5 }} />
             </Box>
           </Box>

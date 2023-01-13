@@ -35,12 +35,14 @@ function Supervisor() {
 
   const [drawerClickInfo, setDrawerClickInfo] = React.useState("MyTasks")
   const [displayedItem, setDisplayedItem] = React.useState(<MyTasks />)
+  const [user, setUser] = React.useState()
 
   React.useEffect(()=>{
+    fetch("/supervisors/2").then(res => res.json()).then(setUser)
+
     if(drawerClickInfo === "My Tasks") { setDisplayedItem(<MyTasks />) }
-    else if (drawerClickInfo === "My Students") { setDisplayedItem(<MyStudents />) }
-    else if (drawerClickInfo === "Lecturers") { setDisplayedItem(<Lecturers />) }
-    fetch("/supervisors").then(console.log)
+    else if (drawerClickInfo === "My Students") { setDisplayedItem(<MyStudents props={user} />) }
+    else if (drawerClickInfo === "Lecturers") { setDisplayedItem(<Lecturers  props={user}/>) }
   },
   [drawerClickInfo])
 
@@ -96,7 +98,7 @@ const drawerButtons = (
   return (
     <ThemeProvider theme={mdTheme}>
       {/* Navigation Bar */}
-      <Navbar user="supervisor"/>
+      <Navbar props="supervisor"/>
       
       {/* Main surface for displayed items */}
       <Box sx={{ display: 'flex' }}>
