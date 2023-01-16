@@ -29,22 +29,23 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 
 function Supervisor() {
+
   const mdTheme = createTheme();
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => { setOpen(!open) };
 
-  const [drawerClickInfo, setDrawerClickInfo] = React.useState("MyTasks")
-  const [displayedItem, setDisplayedItem] = React.useState(<MyTasks />)
+
   const [user, setUser] = React.useState()
+  React.useEffect(()=>{ fetch("/supervisors/1").then(res => res.json()).then(setUser)}, [])
+
+  const [drawerClickInfo, setDrawerClickInfo] = React.useState("MyTasks")
+  const [displayedItem, setDisplayedItem] = React.useState(<MyTasks props={user} />)
 
   React.useEffect(()=>{
-    fetch("/supervisors/2").then(res => res.json()).then(setUser)
-
-    if(drawerClickInfo === "My Tasks") { setDisplayedItem(<MyTasks />) }
+    if(drawerClickInfo === "My Tasks") { setDisplayedItem(<MyTasks  props={user} />) }
     else if (drawerClickInfo === "My Students") { setDisplayedItem(<MyStudents props={user} />) }
     else if (drawerClickInfo === "Lecturers") { setDisplayedItem(<Lecturers  props={user}/>) }
-  },
-  [drawerClickInfo])
+  },[drawerClickInfo])
 
 
 
@@ -97,8 +98,6 @@ const drawerButtons = (
 
   return (
     <ThemeProvider theme={mdTheme}>
-      {/* Navigation Bar */}
-      <Navbar props="supervisor"/>
       
       {/* Main surface for displayed items */}
       <Box sx={{ display: 'flex' }}>
@@ -116,11 +115,6 @@ const drawerButtons = (
         <Box component="main" sx={{  backgroundColor: (theme) => theme.palette.grey[100], flexGrow: 1, height: '100vh', overflow: 'auto'}}>
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}> 
-
-
-              {/* <MyTasks /> 
-              <MyStudents />
-              <Lecturers /> */}
 
               { displayedItem }
 

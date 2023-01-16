@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get "/supervisors", to: "supervisors#index"
 
   resources :lecturers
+  resources :tasks
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
@@ -22,4 +23,5 @@ Rails.application.routes.draw do
 
   post "/login", to: "students#login"
   post "/signup", to: "students#create"
+
 end

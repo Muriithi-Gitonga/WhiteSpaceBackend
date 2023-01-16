@@ -12,10 +12,11 @@ import CreateStudentForm  from "./CreateStudentForm";
 // This will be placed in its own component such that the table can receive props. These props will be the JSON data from the backend 
 export default function MyStudents(props) {
 
-  const[displayedItem, setDisplayedItem] = React.useState("StudentsTable")
 
 
-  React.useEffect(()=>{console.log(props.props.students)},[])
+  // React.useEffect(()=>{console.log(props.props.students)},[])
+
+
   const students = props.props.students
 
   function handleDelete(info) { console.log(info) }
@@ -79,7 +80,7 @@ const columns = [
 },
 {
   field: 'viewProfile',
-  headerName: 'View rofile',
+  headerName: 'View profile',
   width: 150,
   renderCell: renderViewProfileButton,
   disableClickEventBubbling: true,
@@ -87,11 +88,11 @@ const columns = [
 
 ];
 
-function displayForm() { setDisplayedItem("Form")}
 
-function StudentsTable() {
-  return(
-    <Grid item xs={12} >
+
+
+return(
+  <Grid item xs={12} >
     <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }} > 
 
         <Box sx={{display:"flex", flexDirection:"row", justifyContent:"space-between"}}>
@@ -99,7 +100,7 @@ function StudentsTable() {
             <Typography component="h3" variant="h6" gutterBottom> My Students </Typography>
           </Box>
           <Box >
-            <Button onClick={displayForm} sx={{mb:2}} variant="outlined" color="primary" startIcon={ <AddIcon />} >  Enroll New Student </Button>
+            <Button sx={{mb:2}} variant="outlined" color="primary" startIcon={ <AddIcon />} >  Enroll New Student </Button>
 
           </Box>
       </Box>
@@ -110,14 +111,7 @@ function StudentsTable() {
         </div>
     </Paper>
 </Grid>
-  )
-}
-
-
-return(
-  <>
-    { displayedItem === "StudentsTable"? <StudentsTable /> : <CreateStudentForm />}
-  </>
+  
 
 )
     

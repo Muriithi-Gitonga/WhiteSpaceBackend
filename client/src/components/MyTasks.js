@@ -9,7 +9,10 @@ import Box from '@mui/material/Box';
 
 
 
-export default function MyTasks() {
+export default function MyTasks(props) {
+
+  React.useEffect(()=>{console.log(props.props)}, [])
+
 
   function handleUpdate(info) { console.log(info) }
   function handleDelete(info) { console.log(info) }
@@ -77,28 +80,10 @@ const columns = [
   }
 ];
 
-const rows = [
-  { id: 1, title: 'Lannister', description: 'Cersei', solution: "This is the solution", comment: "This is the comment", lecturer: "Nyongesa"},
-  { id: 2, title: 'Lannister', description: 'Cersei', solution: "This is the solution", comment: "This is the comment", lecturer: "Nyongesa"},
-  { id: 3, title: 'Lannister', description: 'Cersei', solution: "This is the solution", comment: "This is the comment", lecturer: "Nyongesa"},
-  { id: 4, title: 'Lannister', description: 'Cersei', solution: "This is the solution", comment: "This is the comment", lecturer: "Nyongesa"},
-  { id: 5, title: 'Lannister', description: 'Cersei', solution: "This is the solution", comment: "This is the comment", lecturer: "Nyongesa"},
-  { id: 6, title: 'Lannister', description: 'Cersei', solution: "This is the solution", comment: "This is the comment", lecturer: "Nyongesa"},
-  { id: 7, title: 'Lannister', description: 'Cersei', solution: "This is the solution", comment: "This is the comment", lecturer: "Nyongesa"},
-  { id: 8, title: 'Lannister', description: 'Cersei', solution: "This is the solution", comment: "This is the comment", lecturer: "Nyongesa"},
-  { id: 9, title: 'Lannister', description: 'Cersei', solution: "This is the solution", comment: "This is the comment", lecturer: "Nyongesa"},
-  { id: 10, title: 'Lannister', description: 'Cersei', solution: "This is the solution", comment: "This is the comment", lecturer: "Nyongesa"},
-  { id: 11, title: 'Lannister', description: 'Cersei', solution: "This is the solution", comment: "This is the comment", lecturer: "Nyongesa"},
-  { id: 12, title: 'Lannister', description: 'Cersei', solution: "This is the solution", comment: "This is the comment", lecturer: "Nyongesa"},
-  { id: 13, title: 'Lannister', description: 'Cersei', solution: "This is the solution", comment: "This is the comment", lecturer: "Nyongesa"},
-  { id: 14, title: 'Lannister', description: 'Cersei', solution: "This is the solution", comment: "This is the comment", lecturer: "Nyongesa"},
-  { id: 15, title: 'Lannister', description: 'Cersei', solution: "This is the solution", comment: "This is the comment", lecturer: "Nyongesa"},
-  { id: 16, title: 'Lannister', description: 'Cersei', solution: "This is the solution", comment: "This is the comment", lecturer: "Nyongesa"},
-  { id: 17, title: 'Lannister', description: 'Cersei', solution: "This is the solution", comment: "This is the comment", lecturer: "Nyongesa"},
-];
+
 
   return (
-    <Grid item xs={12} >
+    <Grid item sx={{width: 1}} >
       <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }} > 
       <Box sx={{display:"flex", flexDirection:"row", justifyContent:"space-between"}}>
         <Box sx={{px:2}}>
@@ -112,7 +97,7 @@ const rows = [
         
         
         <div style={{ height: 685, width: '100%' }}>
-          <DataGrid rows={rows} columns={columns} pageSize={10} rowsPerPageOptions={[5]}  />
+          {/* <DataGrid rows={tasks} columns={columns} pageSize={10} rowsPerPageOptions={[5]}  /> */}
         </div>
       </Paper>
     </Grid>
