@@ -5,8 +5,8 @@ class CreateTasks < ActiveRecord::Migration[7.0]
       t.text :description
       t.text :solution
       t.text :comment
-      t.text :student_id
-      t.text :supervisor_id
+      t.belongs_to :student
+      t.belongs_to :supervisor
       t.boolean :completed
       t.text :student_username
 

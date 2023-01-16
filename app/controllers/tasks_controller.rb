@@ -17,7 +17,7 @@ class TasksController < ApplicationController
 
       def update
         task = Task.find(params[:id])
-        supervisor.update!(task_params)
+        task.update!(task_params)
         render json: task, status: :updated
       end
 
@@ -29,7 +29,7 @@ class TasksController < ApplicationController
       end
 
       private
-      
+
       def task_params
-        params.require(:task).permit(:title, :description, :solutions, :comments, :student_id, :supervisor_id, :completed, :student_username)
+        params.permit(:title, :description, :solutions, :comments, :student_id, :supervisor_id, :completed, :student_username)
 end
