@@ -45,8 +45,8 @@ gem 'database_cleaner', '~> 2.0', '>= 2.0.1'
 
 # gem "bcrypt", "~> 3.1"
 
-gem "jwt", "~> 2.6"
+# gem "jwt", "~> 2.6"
 
-gem "active_model_serializers", "~> 0.10.13"
+# gem "active_model_serializers", "~> 0.10.13"
 
 gem "faker", "~> 3.1"
