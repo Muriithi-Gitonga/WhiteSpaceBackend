@@ -44,7 +44,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_16_063026) do
     t.string "email"
     t.string "password_digest"
     t.string "institution"
-    t.string "lecturer_email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["lecturer_id"], name: "index_students_on_lecturer_id"

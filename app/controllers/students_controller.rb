@@ -1,27 +1,36 @@
 class StudentsController < ApplicationController
-    rescue_from ActiveRecord::RecordInvalid, with: :record_not_found
+    skip_before_action :authorize, only: [:create, :index]
+    rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
 
     def index
         render json: Student.all
     end
 
+   
+
+    # register
     def create
         student = Student.create!(student_params)
-
-        render json: student, status: :created
+        token = encode_token({user_id: student.id})
+        
+        render json: {lecturer: lecturer, token: token}, status: :created
+     
     end
 
-    def login
-        student = Student.find_by(params[:username])
-        #User#authenticate comes from BCrypt
-        if student && student.authenticate(params[:password])
-          # encode token comes from ApplicationController
-          token = encode_token( student_id: student.id )
-          render json: {student:student, token:token}, status: :accepted
-        else
-          render json: { message: 'Invalid username or password' }, status: :unauthorized
-        end
-    end
+    
+
+    # def login
+    #     student = Student.find_by(params[:username])
+    #     #User#authenticate comes from BCrypt
+    #     if student && student.authenticate(params[:password])
+    #       # encode token comes from ApplicationController
+    #       token = encode_token( student_id: student.id )
+    #       render json: {student:student, token:token}, status: :accepted
+    #     else
+    #       render json: { message: 'Invalid username or password' }, status: :unauthorized
+    #     end
+    # end
+
 
 
 
@@ -31,7 +40,7 @@ class StudentsController < ApplicationController
 
     private
 
-    def record_not_found
+    def record_invalid invalid
         render json: {errors: invalid.record.errors.full_messages}, status: :unprocessable_entity
     end
 

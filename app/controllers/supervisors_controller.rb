@@ -1,46 +1,54 @@
 class SupervisorsController < ApplicationController
-    rescue_from ActiveRecord::RecordInvalid, with: :invalid_credentials
-    rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
-    # skip_before_action :authorize, only:[:login, :create, :index, :show]
-    def index 
-      supervisors = Supervisor.all
-      render json: supervisors
-    end
-    def show
-      supervisor = Supervisor.find(params[:id])
-      render json: supervisor
-    end
+  skip_before_action :authorize, only: [:create, :index]
+  # rescue_from ActiveRecord::RecordInvalid, with: :invalid_credentials
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+  rescue_from ActiveRecord::RecordInvalid, with: :invalid_credentials
 
-    def create
-      supervisor = Supervisor.create!(supervisor_params)
-      render json: supervisor, status: :created
-    end
+  
+  def index 
+    # supervisors = Supervisor.all
+    render json: valid_user
+  end
 
-    def login
-      supervisor = Supervisor.find_by(email:params[:email])
-      if supervisor &.authenticate (params[:password])
-        token =  encode_token(supervisor_id:supervisor.id)
-        render json: {supervisor:supervisor, token:token}
-      else
-        render json: {error: "invalid email or password"}
-      end
-    end
+  def show
+    supervisor = Supervisor.find(params[:id])
+    render json: supervisor
+  end
 
-
-    private
-
-    def record_not_found
-      render json: {error:"supervisor not found"}, status: :not_found
-    end
-    def authorize
-      render json: { message: 'Please log in' }, status: :unauthorized unless logged_in?
-    end
-
-    def supervisor_params
-        params.permit(:username,:email,:name,:password,:password_confirmation)
-    end
+  # register
+  def create
+    supervisor = Supervisor.create!(supervisor_params)
     
-    def invalid_credentials invalid
-        render json:{errors: invalid.record.errors.full_messages}, status: :unprocessable_entity
-    end
+    token = encode_token({user_id: supervisor.id})
+    
+    render json: {supervisor: supervisor, token: token}, status: :created
+  end
+
+  
+
+  # def login
+  #   supervisor = Supervisor.find_by(email:params[:email])
+  #   if supervisor &.authenticate (params[:password])
+  #     token =  encode_token(supervisor_id:supervisor.id)
+  #     render json: {supervisor:supervisor, token:token}
+  #   else
+  #     render json: {error: "invalid email or password"}
+  #   end
+  # end
+
+
+  private
+
+  def record_not_found
+    render json: {error:"supervisor not found"}, status: :not_found
+  end
+
+
+  def supervisor_params
+      params.permit(:username,:email,:name,:password)
+  end
+  
+  def invalid_credentials invalid
+      render json:{errors: invalid.record.errors.full_messages}, status: :unprocessable_entity
+  end
 end

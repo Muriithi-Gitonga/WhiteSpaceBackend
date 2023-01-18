@@ -1,4 +1,5 @@
 class TasksController < ApplicationController
+    skip_before_action :authorize
     def index
         tasks = Task.all
         render json: tasks

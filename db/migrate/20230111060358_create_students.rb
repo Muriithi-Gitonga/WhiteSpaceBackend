@@ -12,7 +12,7 @@ class CreateStudents < ActiveRecord::Migration[7.0]
       t.string :email
       t.string :password_digest
       t.string :institution
-      t.string :lecturer_email
+      # t.string :lecturer_email
 
       t.timestamps
     end
