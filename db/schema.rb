@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema[7.0].define(version: 2023_01_16_063026) do
+=======
+ActiveRecord::Schema[7.0].define(version: 2023_01_13_101544) do
+>>>>>>> WHIT-8-tasks
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -60,13 +64,23 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_16_063026) do
   end
 
   create_table "tasks", force: :cascade do |t|
+<<<<<<< HEAD
     t.bigint "student_id"
     t.bigint "supervisor_id"
+=======
+>>>>>>> WHIT-8-tasks
     t.text "title"
     t.text "description"
     t.text "solution"
     t.text "comment"
+<<<<<<< HEAD
     t.boolean "completed"
+=======
+    t.bigint "student_id"
+    t.bigint "supervisor_id"
+    t.boolean "completed"
+    t.text "student_username"
+>>>>>>> WHIT-8-tasks
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["student_id"], name: "index_tasks_on_student_id"
