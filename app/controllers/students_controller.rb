@@ -1,6 +1,7 @@
 class StudentsController < ApplicationController
-    skip_before_action :authorize, only: [:create, :index]
     rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
+    skip_before_action :authorize, only:[:login, :create, :index]
+    wrap_parameters format: [:json]
 
     def index
         render json: Student.all
@@ -45,7 +46,7 @@ class StudentsController < ApplicationController
     end
 
     def student_params
-         params.permit(:id, :name, :course, :start_date, :end_date, :department, :email, :username, :institution, :supervisor)
+         params.permit(:id, :name, :course, :start_date, :end_date, :department, :email, :username, :institution, :password, :lecturer_id, :supervisor_id)
     end
 
 

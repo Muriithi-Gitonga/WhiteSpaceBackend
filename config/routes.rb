@@ -25,4 +25,6 @@ Rails.application.routes.draw do
   post "/login", to: "jwt#create"
   get "/login", to: "jwt#create"
 
+  post "/signin", to: "students#login"
+  post "/register", to: "students#create"
 end
