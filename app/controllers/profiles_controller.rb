@@ -1,4 +1,5 @@
-# class ProfilesController < ApplicationController
+class ProfilesController < ApplicationController
+    skip_before_action :authorize, only:[ :index]
 
 # def index
 #     profiles = Profile.all

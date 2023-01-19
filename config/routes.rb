@@ -1,10 +1,19 @@
 Rails.application.routes.draw do
+  resources :tasks
   resources :supervisors
   resources :lecturers
   resources :tasks
   resources :students
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  post "/login", to: "jwt#create"
+  # get "/login", to: "jwt#create"
 
+  post "/signin", to: "students#login"
+  post "/register", to: "students#create"
+  post "/signup", to: "lecturers#create"
+
+  #get "/lecturers", to: "lecturers#create"
+  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  
   # Defines the root path route ("/")
   # root "articles#index"
 
@@ -14,8 +23,5 @@ Rails.application.routes.draw do
 
   # resources :profiles, only: [:index, :show]
 
-
-  post "/login", to: "jwt#create"
-  get "/login", to: "jwt#create"
 
 end
