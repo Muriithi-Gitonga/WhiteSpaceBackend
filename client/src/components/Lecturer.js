@@ -11,9 +11,9 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 // import { mainListItems, avatar } from './ListItems';
 import Navbar from "./Navbar";
-import StudentTasks from "./StudentTasks";
-import MySupervisors from "./MySupervisors";
-import StudentLecturers from "./StudentLecturers.js";
+import MyTasks from "./MyTasks";
+import LecturerStudents from "./LecturerStudents";
+import Lecturers from "./MyLecturers ";
 
 // import { Typography } from '@mui/material';
 import { Drawer } from "./Drawer";
@@ -25,23 +25,16 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
-function Student({ setPerson }) {
-  
-  const [tasks, setTasks] = React.useState([]);
-  const [supervisors, setSupervisors] = React.useState([]);
-  const [lecturers, setLecturers] = React.useState([]);
+function Lecturer({ setPerson }) {
+  const [students, setStudents] = React.useState([]);
 
   const user_id = localStorage.getItem("user_id");
   console.log(user_id);
 
   React.useEffect(() => {
-    fetch(`/students/${user_id}`)
+    fetch(`/lecturers/${user_id}`)
       .then((r) => r.json())
-      .then((data) => {
-        setTasks(data.tasks);
-        setSupervisors(data.supervisor);
-        setLecturers(data.lecturer);
-      });
+      .then((data) => setStudents(data.students));
   }, []);
 
   const mdTheme = createTheme();
@@ -50,53 +43,26 @@ function Student({ setPerson }) {
     setOpen(!open);
   };
 
-  const [drawerClickInfo, setDrawerClickInfo] = React.useState("My Tasks");
-
   const avatar = (
     <React.Fragment>
-      <ListItemButton
-        onClick={(event) => setDrawerClickInfo(event.target.textContent)}
-      >
+      <ListItemButton>
         <ListItemIcon>
           <AccountCircleIcon />
         </ListItemIcon>
-        <ListItemText>Student 1</ListItemText>
+        <ListItemText>Lecturer 1</ListItemText>
       </ListItemButton>
     </React.Fragment>
   );
 
   const drawerButtons = (
     <React.Fragment>
-      <ListItemButton
-        onClick={(event) => setDrawerClickInfo(event.target.textContent)}
-      >
-        <ListItemIcon>
-          <DashboardIcon />
-        </ListItemIcon>
-        <ListItemText primary="My Tasks" />
-      </ListItemButton>
-
-      <Divider sx={{ my: 1 }} />
-
-      <ListItemButton
-        onClick={(event) => setDrawerClickInfo(event.target.textContent)}
-      >
+      <ListItemButton>
         <ListItemIcon>
           <AssignmentIcon />
         </ListItemIcon>
-        <ListItemText primary="My Supervisors" />
+        <ListItemText primary="My Students" />
       </ListItemButton>
 
-      <Divider sx={{ my: 1 }} />
-
-      <ListItemButton
-        onClick={(event) => setDrawerClickInfo(event.target.textContent)}
-      >
-        <ListItemIcon>
-          <AssignmentIcon />
-        </ListItemIcon>
-        <ListItemText primary="My Lecturers" />
-      </ListItemButton>
       <Divider sx={{ my: 1 }} />
 
       <ListItemButton
@@ -149,15 +115,7 @@ function Student({ setPerson }) {
         >
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
-              {drawerClickInfo === "My Tasks" ? (
-                <StudentTasks user="student" tasks={tasks} />
-              ) : drawerClickInfo === "My Lecturers" ? (
-                <StudentLecturers lecturers={lecturers} />
-              ) : drawerClickInfo === "My Supervisors" ? (
-                <MySupervisors supervisors={supervisors} />
-              ) : (
-                <></>
-              )}
+              <LecturerStudents students={students} />
             </Grid>
           </Container>
         </Box>
@@ -166,4 +124,4 @@ function Student({ setPerson }) {
   );
 }
 
-export default Student;
+export default Lecturer;

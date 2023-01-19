@@ -6,14 +6,11 @@ import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 import Box from "@mui/material/Box";
-import CreateStudentForm from "./CreateStudentForm";
 
-// This will be placed in its own component such that the table can receive props. These props will be the JSON data from the backend
-export default function MyStudents({ students }) {
+export default function MyLecturers({ lecturers }) {
   function handleDelete(info) {
     console.log(info);
   }
- 
 
   const renderDeleteButton = (params) => {
     return (
@@ -32,24 +29,18 @@ export default function MyStudents({ students }) {
     );
   };
 
- 
-
   const columns = [
     { field: "id", headerName: "ID", width: 50 },
     { field: "name", headerName: "Name", width: 150 },
-    { field: "course", headerName: "Course", width: 200 },
-    { field: "start_date", headerName: "start_date", width: 100 },
-    { field: "end_date", headerName: "end_date", width: 100 },
-    { field: "department", headerName: "Department", width: 150 },
     { field: "email", headerName: "Email", width: 150 },
-    { field: "institution", headerName: "Institution", width: 80 },
+    { field: "institution", headerName: "Institution", width: 150 },
     {
       field: "delete",
       headerName: "Delete",
       width: 150,
       renderCell: renderDeleteButton,
       disableClickEventBubbling: true,
-    }
+    },
   ];
 
   return (
@@ -65,7 +56,7 @@ export default function MyStudents({ students }) {
           <Box sx={{ px: 2 }}>
             <Typography component="h3" variant="h6" gutterBottom>
               {" "}
-              My Students{" "}
+              Lecturers{" "}
             </Typography>
           </Box>
           <Box>
@@ -76,14 +67,13 @@ export default function MyStudents({ students }) {
               startIcon={<AddIcon />}
             >
               {" "}
-              Enroll New Student{" "}
+              Enroll New Lecturer{" "}
             </Button>
           </Box>
         </Box>
-
         <div style={{ height: 685, width: "100%" }}>
           <DataGrid
-            rows={students}
+            rows={lecturers}
             columns={columns}
             pageSize={10}
             rowsPerPageOptions={[5]}

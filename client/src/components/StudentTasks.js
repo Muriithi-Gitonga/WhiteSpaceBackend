@@ -7,23 +7,20 @@ import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
 import Box from '@mui/material/Box';
 import Backdrop from '@mui/material/Backdrop';
-import SupervisorEditTaskForm from "./SupervisorEditTaskForm";
-import DeleteConfirmationAlert from './DeleteConfirmationAlert';
+import StudentEditTaskForm from "./StudentEditTaskForm";
 
 
 
 
-export default function MyTasks(  {user, tasks} ) {
-  const [displayedItem, setDisplayedItem] = React.useState()
+
+export default function StudentTasks(  {user, tasks} ) {
 
   const [open, setOpen] = React.useState(false);
   const handleClose = () => {
     setOpen(false);
   };
-  const handleToggle = (info) => {
+  const handleToggle = () => {
     setOpen(!open);
-    info==="edit"? setDisplayedItem(<SupervisorEditTaskForm handleClose={handleClose}/>) : setDisplayedItem(<DeleteConfirmationAlert handleClose={handleClose} />)
-
   };
 
   
@@ -41,7 +38,7 @@ console.log(user)
                 variant="contained"
                 color="primary"
                 size="small"
-                onClick={ handleToggle("edit")}
+                onClick={ handleToggle}
             >
               Edit
             </Button>
@@ -56,7 +53,9 @@ const renderDeleteButton = (params) => {
               variant="contained"
               color="primary"
               size="small"
-              onClick={handleToggle("delete")}
+              onClick={(e) => {
+                  handleDelete(params.row)
+              }}
           >
             Delete
           </Button>
@@ -128,8 +127,8 @@ const columns = user === "student"? [
     open={open}
 
   >
-    
-{displayedItem}
+    <StudentEditTaskForm handleClose={handleClose}/>
+
 
   </Backdrop>
 

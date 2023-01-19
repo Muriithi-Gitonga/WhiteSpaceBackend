@@ -13,7 +13,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import Navbar from './Navbar';
 import MyTasks from './MyTasks';
 import MyStudents from './MyStudents';
-import Lecturers from './Lecturers';
+import MyLecturers from './MyLecturers ';
 
 // import { Typography } from '@mui/material';
 import { Drawer } from "./Drawer"
@@ -28,73 +28,95 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 
 
-function Supervisor() {
+function Supervisor( {setPerson}) {
+ const [tasks, setTasks] = React.useState([])
+ const [students, setStudents] = React.useState([])
+ const [lecturers, setLecturers] = React.useState([])
+
+
+const user_id = localStorage.getItem("user_id")
+console.log(user_id)
+
+React.useEffect(()=>{
+  fetch(`/supervisors/${user_id}`)
+  .then((r) => r.json())
+  .then((data) => {
+    setTasks(data.tasks)
+    setStudents(data.students)
+    setLecturers(data.lecturers)
+    
+  })
+  
+  
+}, [])
+
 
   const mdTheme = createTheme();
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => { setOpen(!open) };
 
 
-  const [user, setUser] = React.useState()
-  React.useEffect(()=>{ fetch("/supervisors/1").then(res => res.json()).then(setUser)}, [])
-
-  const [drawerClickInfo, setDrawerClickInfo] = React.useState("MyTasks")
-  const [displayedItem, setDisplayedItem] = React.useState(<MyTasks props={user} />)
-
-  React.useEffect(()=>{
-    if(drawerClickInfo === "My Tasks") { setDisplayedItem(<MyTasks  props={user} />) }
-    else if (drawerClickInfo === "My Students") { setDisplayedItem(<MyStudents props={user} />) }
-    else if (drawerClickInfo === "Lecturers") { setDisplayedItem(<Lecturers  props={user}/>) }
-  },[drawerClickInfo])
 
 
 
+  const [drawerClickInfo, setDrawerClickInfo] = React.useState("My Tasks")
 
 
+  const avatar = (
+    <React.Fragment>
+        <ListItemButton onClick={(event)=>setDrawerClickInfo(event.target.textContent)}>
+            <ListItemIcon>
+                <AccountCircleIcon />
+            </ListItemIcon>
+            <ListItemText>
+                Supervisor 1
+            </ListItemText>
+        </ListItemButton>
 
-const avatar = (
-  <React.Fragment>
+    </React.Fragment>
+  )
+
+  const drawerButtons = (
+    <React.Fragment>
       <ListItemButton onClick={(event)=>setDrawerClickInfo(event.target.textContent)}>
-          <ListItemIcon>
-              <AccountCircleIcon />
-          </ListItemIcon>
-          <ListItemText>
-              Supervisor 1
-          </ListItemText>
+        <ListItemIcon>
+          <DashboardIcon />
+        </ListItemIcon>
+        <ListItemText primary="My Tasks" />
       </ListItemButton>
 
-  </React.Fragment>
-)
+      <Divider sx={{ my: 1 }} />
 
-const drawerButtons = (
-  <React.Fragment>
-    <ListItemButton onClick={(event)=>setDrawerClickInfo(event.target.textContent)}>
-      <ListItemIcon>
-        <DashboardIcon />
-      </ListItemIcon>
-      <ListItemText primary="My Tasks" />
-    </ListItemButton>
+      <ListItemButton onClick={(event)=>setDrawerClickInfo(event.target.textContent)}>
+        <ListItemIcon>
+          <AssignmentIcon />
+        </ListItemIcon>
+        <ListItemText primary="My Students" />
+      </ListItemButton>
 
-    <Divider sx={{ my: 1 }} />
+      <Divider sx={{ my: 1 }} />
+      
+      <ListItemButton onClick={(event)=>setDrawerClickInfo(event.target.textContent)}>
+        <ListItemIcon>
+          <AssignmentIcon />
+        </ListItemIcon>
+        <ListItemText primary="Lecturers" />
+      </ListItemButton>
+      <Divider sx={{ my: 1 }} />
+      
+      <ListItemButton 
+      onClick={()=>{
+              localStorage.removeItem("role")
+              setPerson(null)
+      }}>
+        <ListItemIcon>
+          <AssignmentIcon />
+        </ListItemIcon>
+        <ListItemText primary="Logout" />
+      </ListItemButton>
 
-    <ListItemButton onClick={(event)=>setDrawerClickInfo(event.target.textContent)}>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="My Students" />
-    </ListItemButton>
-
-    <Divider sx={{ my: 1 }} />
-    
-    <ListItemButton onClick={(event)=>setDrawerClickInfo(event.target.textContent)}>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Lecturers" />
-    </ListItemButton>
-
-  </React.Fragment>
-);
+    </React.Fragment>
+  );
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -116,7 +138,11 @@ const drawerButtons = (
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}> 
 
-              { displayedItem }
+            
+          { drawerClickInfo === "My Tasks"? <MyTasks tasks={tasks}  /> : drawerClickInfo==="My Students"?  <MyStudents students={students}/> : drawerClickInfo==="Lecturers"?
+          <MyLecturers lecturers={lecturers}/> : <></> }
+
+    
 
             </Grid>
           </Container>

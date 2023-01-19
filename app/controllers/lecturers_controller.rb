@@ -1,5 +1,5 @@
 class LecturersController < ApplicationController
-    skip_before_action :authorize, only: [:create, :index]
+    skip_before_action :authorize
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 
     rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
@@ -10,6 +10,13 @@ class LecturersController < ApplicationController
         lecturer = Lecturer.all
         render json: lecturer
     end
+
+    def show
+        lecturer = Lecturer.find(params[:id])
+        render json: lecturer
+
+    end
+ 
 
     #register
     def create

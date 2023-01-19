@@ -9,13 +9,13 @@ import Box from "@mui/material/Box";
 import CreateStudentForm from "./CreateStudentForm";
 
 // This will be placed in its own component such that the table can receive props. These props will be the JSON data from the backend
-export default function MyStudents({ students }) {
-  function handleDelete(info) {
+export default function LecturerStudents({ students }) {
+  function handleDownload(info) {
     console.log(info);
   }
  
 
-  const renderDeleteButton = (params) => {
+  const renderDownloadButton = (params) => {
     return (
       <strong>
         <Button
@@ -23,10 +23,10 @@ export default function MyStudents({ students }) {
           color="primary"
           size="small"
           onClick={(e) => {
-            handleDelete(params.row);
+            handleDownload(params.row);
           }}
         >
-          Delete
+          Download
         </Button>
       </strong>
     );
@@ -44,10 +44,10 @@ export default function MyStudents({ students }) {
     { field: "email", headerName: "Email", width: 150 },
     { field: "institution", headerName: "Institution", width: 80 },
     {
-      field: "delete",
-      headerName: "Delete",
+      field: "report",
+      headerName: "Report",
       width: 150,
-      renderCell: renderDeleteButton,
+      renderCell: renderDownloadButton,
       disableClickEventBubbling: true,
     }
   ];
@@ -68,17 +68,7 @@ export default function MyStudents({ students }) {
               My Students{" "}
             </Typography>
           </Box>
-          <Box>
-            <Button
-              sx={{ mb: 2 }}
-              variant="outlined"
-              color="primary"
-              startIcon={<AddIcon />}
-            >
-              {" "}
-              Enroll New Student{" "}
-            </Button>
-          </Box>
+          
         </Box>
 
         <div style={{ height: 685, width: "100%" }}>

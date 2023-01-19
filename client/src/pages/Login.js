@@ -10,32 +10,76 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Navbar from '../components/Navbar';
 import { CssBaseline } from '@mui/material';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+import Alert from '@mui/material/Alert';
 
 
 function Copyright() { return <Typography variant="body2" color="text.secondary" align="center"> {'Copyright © '} {"2023."} </Typography> }
 
 const theme = createTheme();
 
-export default function Login() {
+export default function Login( {setPerson})  {
+  const [valid, setValid] = React.useState(true)
+  const [error, setError] = React.useState("")
+
+  const [role, setRole] = React.useState("")
+  function handleChange(e) { setRole(e.target.value) }
 
   const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+      event.preventDefault();
+      const data = new FormData(event.currentTarget);
 
-    fetch('/login', {
-      method: "POST",
-      headers: { "Content-Type": "application/json "},
-      body: JSON.stringify({
+      console.log({
         email: data.get('email'),
         password: data.get('password'),
+        role: role,
+      });
+
+      fetch('/login', {
+        method: "POST",
+        headers: { 
+          "Content-Type": "application/json ",
+          "role": role,
+        },
+        body: JSON.stringify({
+          email: data.get('email'),
+          password: data.get('password'),
+        })
       })
-    })
-    .then((r) => r.json())
-    .then(console.log)
+      .then((r) => {
+        if(r.ok) { 
+          r.json()
+          .then((data) => {
+
+            const tasks = []
+
+            localStorage.setItem( "token", data.token );
+            localStorage.setItem("role", role);
+            localStorage.setItem("user_id", data.user.id)
+
+
+            
+              
+
+            setPerson(role)
+
+
+            setValid(true)
+          })
+          ;
+        } else {
+          r.json()
+          .then((data) => {
+            setValid(false)
+            setError(data.error)
+          })
+        }
+      })
+
     };
 
 
@@ -62,11 +106,30 @@ export default function Login() {
         {/* Sign in form on right side */}
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <Box sx={{ my: 8, mx: 4, display: 'flex', flexDirection: 'column', alignItems: 'center'}} >
-            <Avatar sx={{ m: 1, bgColor: 'primary.dark' }}> <LockOutlinedIcon /> </Avatar>
+            <Avatar sx={{ m: 1, bgcolor: 'primary.dark' }}> <LockOutlinedIcon /> </Avatar>
             <Typography component="h1" variant="h5"> Sign in </Typography>
+
+            {valid? <></> : <Alert sx={{mt:2}} severity="error">{error}</Alert>}
+
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField margin="normal" required fullWidth id="email" label="Email Address" name="email" autoComplete="email" autoFocus />
               <TextField margin="normal" required fullWidth name="password" label="Password" type="password" id="password" autoComplete="current-password" />
+
+            {/* User type selection */}
+            <FormControl sx={{mt:2, ml:1}} >
+              <FormLabel id="demo-radio-buttons-group-label">Role</FormLabel>
+              <RadioGroup
+                aria-labelledby="demo-radio-buttons-group-label"
+                name="radio-buttons-group"
+                sx={{display:"flex", flexDirection:"row"}}
+                onChange={handleChange}
+              >
+                <FormControlLabel value="supervisor" control={<Radio />} label="Supervisor" />
+                <FormControlLabel value="lecturer" control={<Radio />} label="Lecturer" />
+                <FormControlLabel value="student" control={<Radio />} label="Student" />
+              </RadioGroup>
+            </FormControl>
+
                 <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} > Sign In </Button>
               <Copyright sx={{ mt: 5 }} />
             </Box>

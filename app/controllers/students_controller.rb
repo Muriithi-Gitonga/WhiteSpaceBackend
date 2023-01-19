@@ -1,5 +1,5 @@
 class StudentsController < ApplicationController
-    skip_before_action :authorize, only: [:create, :index]
+    skip_before_action :authorize
     rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
 
     def index
@@ -15,6 +15,12 @@ class StudentsController < ApplicationController
         
         render json: {lecturer: lecturer, token: token}, status: :created
      
+    end
+
+    def show
+        student = Student.find(params[:id])
+        render json: student
+
     end
 
     

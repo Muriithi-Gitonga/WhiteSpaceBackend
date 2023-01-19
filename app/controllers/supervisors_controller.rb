@@ -1,5 +1,5 @@
 class SupervisorsController < ApplicationController
-  skip_before_action :authorize, only: [:create, :index]
+  skip_before_action :authorize
   # rescue_from ActiveRecord::RecordInvalid, with: :invalid_credentials
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
   rescue_from ActiveRecord::RecordInvalid, with: :invalid_credentials
@@ -7,7 +7,7 @@ class SupervisorsController < ApplicationController
   
   def index 
     # supervisors = Supervisor.all
-    render json: valid_user
+    render json: Supervisor.all
   end
 
   def show
