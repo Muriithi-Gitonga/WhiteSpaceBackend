@@ -10,8 +10,7 @@ import Grid from "@mui/material/Grid";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import LecturerStudents from "../components/lecturer_components/LecturerStudents";
-import { Drawer } from "../components/Drawer";
-
+import { Drawer } from "../components/common/Drawer";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";

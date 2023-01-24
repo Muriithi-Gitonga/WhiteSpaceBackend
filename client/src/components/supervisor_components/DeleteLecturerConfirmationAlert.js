@@ -40,7 +40,7 @@ export default function DeleteLecturerConfirmationAlert({
           alignItems: "center",
         }}
       >
-        <Typography component="h1" variant="h5" sx={{ color: "primary.dark" }}>
+        <Typography component="h1" variant="h5" sx={{ textAlign: "center", color: "primary.dark" }}>
           Are you sure you want to remove this lecturer?{" "}
         </Typography>
 

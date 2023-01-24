@@ -8,7 +8,6 @@ import IconButton from "@mui/material/IconButton";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import StudentTasks from "../components/student_components/StudentTasks"
 import StudentSupervisors from "../components/student_components/StudentSupervisors";
 import { Drawer } from "../components/common/Drawer";
