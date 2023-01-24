@@ -1,33 +1,47 @@
 import * as React from "react";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-export default function SupervisorEditTaskForm({handleClose}) {
+export default function SupervisorEditTaskForm({
+  setEditSuccess,
+  taskId,
+  handleClose,
+}) {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+
     console.log({
-      title: data.get("title")
+      title: data.get("title"),
+    });
+    console.log("This task has been editted!");
+
+    fetch(`tasks/${taskId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title: data.get("title"),
+      }),
     })
-    handleClose()
-    
+      .then((res) => res.json())
+      .then(setEditSuccess(`Success! Task ${taskId} has been updated`));
+    handleClose();
+  };
+
+  const handleGoBack = () => {
+    handleClose();
   };
   return (
     <Container
       component="main"
       maxWidth="xs"
-      sx={{ border: 2, borderRadius: "5px", backgroundColor: "white" }}
+      sx={{ borderRadius: "5px", backgroundColor: "white" }}
     >
       <Box
         sx={{
@@ -41,9 +55,6 @@ export default function SupervisorEditTaskForm({handleClose}) {
           Edit Task
         </Typography>
 
-        {/* <Typography  variant="h6" sx={{ color: "black" }}>
-        Title: 
-        </Typography> */}
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -56,14 +67,12 @@ export default function SupervisorEditTaskForm({handleClose}) {
                 autoComplete="title"
               />
             </Grid>
-
           </Grid>
           <Button
             type="submit"
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
-            
           >
             Save details
           </Button>
@@ -72,8 +81,7 @@ export default function SupervisorEditTaskForm({handleClose}) {
             fullWidth
             variant="contained"
             sx={{ mb: 2 }}
-            onClick={handleClose}
-            
+            onClick={handleGoBack}
           >
             Back to tasks
           </Button>

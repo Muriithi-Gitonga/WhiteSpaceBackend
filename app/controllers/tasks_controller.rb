@@ -1,5 +1,7 @@
 class TasksController < ApplicationController
     skip_before_action :authorize
+    rescue_from ActiveRecord::RecordInvalid, with: :invalid_task
+
     def index
         tasks = Task.all
         render json: tasks
@@ -31,6 +33,11 @@ class TasksController < ApplicationController
 
     def task_params
         params.permit(:title, :description, :solution, :comment, :student_id, :supervisor_id, :completed)
+    end
+
+    
+    def invalid_task invalid
+        render json:{errors: invalid.record.errors.full_messages}, status: :unprocessable_entity
     end
 
 end

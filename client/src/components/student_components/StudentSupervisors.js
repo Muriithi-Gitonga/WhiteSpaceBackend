@@ -3,46 +3,22 @@ import { DataGrid } from "@mui/x-data-grid";
 import { Typography } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import Button from "@mui/material/Button";
-import AddIcon from "@mui/icons-material/Add";
 import Box from "@mui/material/Box";
 
-function StudentLecturers({ lecturers }) {
+export default function StudentSupervisors({ supervisors }) {
 
-const rows = [];
-rows.push(lecturers)
-
-
-  function handleDelete(info) {
-    console.log(info);
-  }
-
-  const renderDeleteButton = (params) => {
-    return (
-      <strong>
-        <Button
-          variant="contained"
-          color="primary"
-          size="small"
-          onClick={(e) => {
-            handleDelete(params.row);
-          }}
-        >
-          Delete
-        </Button>
-      </strong>
-    );
-  };
-
+const list = []
+list.push(supervisors)
   const columns = [
     { field: "id", headerName: "ID", width: 50 },
-    { field: "name", headerName: "Name", width: 150 },
-    { field: "email", headerName: "Email", width: 150 },
-    { field: "institution", headerName: "Institution", width: 150 },
+    { field: "name", headerName: "Name", width: 200 },
+    { field: "email", headerName: "Email", width: 200 },
+    // { field: "institution", headerName: "Institution", width: 200 },
 
   ];
 
   return (
+    <>
     <Grid item xs={12}>
       <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
         <Box
@@ -54,15 +30,15 @@ rows.push(lecturers)
         >
           <Box sx={{ px: 2 }}>
             <Typography component="h3" variant="h6" gutterBottom>
-              {" "}
-              Lecturers{" "}
+            My Supervisor
             </Typography>
           </Box>
           
         </Box>
+
         <div style={{ height: 685, width: "100%" }}>
           <DataGrid
-            rows={rows}
+            rows={list}
             columns={columns}
             pageSize={10}
             rowsPerPageOptions={[5]}
@@ -70,6 +46,7 @@ rows.push(lecturers)
         </div>
       </Paper>
     </Grid>
+
+    </>
   );
 }
-export default StudentLecturers;

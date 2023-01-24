@@ -1,51 +1,38 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import About from "./pages/About";
-import Reviews from "./pages/Reviews";
-import Contact from "./pages/Contact";
-import Supervisor from "./components/Supervisor";
-import Student from "./components/Student";
-import CssBaseline from '@mui/material/CssBaseline';
-import Login from "./pages/Login";
+import CssBaseline from "@mui/material/CssBaseline";
 import Navbar from "./components/Navbar";
-import Lecturer from "./components/Lecturer";
+import Login from "./pages/Login";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+import Supervisor from "./users/Supervisor";
+import Student from "./users/Student";
+import Lecturer from "./users/Lecturer";
 
 function App() {
+  const [person, setPerson] = React.useState();
 
- const [person, setPerson] = React.useState('')
-//  const [displayedItem, setDisplayedItem] = React.useState()
-
-
- React.useEffect(()=>{
-  const y = localStorage.getItem("role")
-  console.log(y)
-
-},[person])
-
-
-
-const signedInUser = localStorage.getItem("role")
-console.log(signedInUser)
-
-
-
-
-  
+  const signedInUser = localStorage.getItem("role");
 
   return (
     <Router>
       <CssBaseline />
       <Navbar />
       <Switch>
-        
-        {/* <Route path="/" element={ <Home user={user} handleLogout={handleLogout} /> } /> */}
-        {/* <Route exact path="/"> <Login setUser={setUser}></Login></Route> */}
-        {/* <Route exact path="/home"> <Login setUser={setUser}></Login></Route> */}
+        <Route path="/about" component={About} />
+        <Route path="/contact" component={Contact} />
         <Route path="/">
-            {signedInUser==="supervisor"? <Supervisor setPerson={setPerson}></Supervisor> : signedInUser==="lecturer"? <Lecturer setPerson={setPerson}></Lecturer> : signedInUser==="student"? <Student setPerson={setPerson}></Student> : <Login setPerson={setPerson} ></Login>}
-            </Route>
-
-        </Switch>
+          {signedInUser === "supervisor" ? (
+            <Supervisor setPerson={setPerson}></Supervisor>
+          ) : signedInUser === "student" ? (
+            <Student setPerson={setPerson}></Student>
+          ) : signedInUser === "lecturer" ? (
+            <Lecturer setPerson={setPerson}></Lecturer>
+          ) : (
+            <Login setPerson={setPerson}></Login>
+          )}
+        </Route>
+      </Switch>
     </Router>
   );
 }

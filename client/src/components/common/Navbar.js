@@ -8,8 +8,6 @@ import Button from '@mui/material/Button';
 import GroupsIcon from '@mui/icons-material/Groups';
 
 function Navbar() {
-  const pages = ['Home', 'About', 'Reviews', 'Contact'];
-
 
   return (
     <AppBar position="static">
@@ -22,9 +20,9 @@ function Navbar() {
           </Box>
 
           {/* Nav List */}
-          <Box sx={{ flexGrow: 1, display: { md: 'flex'}, ml:20}}>
+          {/* <Box sx={{ flexGrow: 1, display: { md: 'flex'}, ml:20}}>
             { pages.map((page) => ( <Button href={page} key={page} sx={{ my: 2, mx:5, color: 'white', display: 'block' }}> {page} </Button> )) }
-          </Box>
+          </Box> */}
           {/* { navbarButton } */}
         </Toolbar>
       </Container>

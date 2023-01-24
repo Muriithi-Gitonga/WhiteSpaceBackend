@@ -9,66 +9,91 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-// import { mainListItems, avatar } from './ListItems';
-import Navbar from "./Navbar";
-import MyTasks from "./MyTasks";
-import LecturerStudents from "./LecturerStudents";
-import Lecturers from "./MyLecturers ";
-
-// import { Typography } from '@mui/material';
-import { Drawer } from "./Drawer";
-
+import StudentTasks from "../components/student_components/StudentTasks"
+import StudentSupervisors from "../components/student_components/StudentSupervisors";
+import { Drawer } from "../components/common/Drawer";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import StudentLecturers from "../components/student_components/StudentLecturers"
 
-function Lecturer({ setPerson }) {
-  const [students, setStudents] = React.useState([]);
+function Student({ setPerson }) {
+  const [tasks, setTasks] = React.useState([]);
+  const [supervisors, setSupervisors] = React.useState([]);
+  const [lecturers, setLecturers] = React.useState([]);
+  // const [studentName, setStudentName] = React.useState([])
 
   const user_id = localStorage.getItem("user_id");
-  console.log(user_id);
 
   React.useEffect(() => {
-    fetch(`/lecturers/${user_id}`)
+    fetch(`/students/${user_id}`)
       .then((r) => r.json())
-      .then((data) => setStudents(data.students));
-  }, []);
+      .then((data) => {
+        setTasks(data.tasks);
+        setSupervisors(data.supervisor);
+        setLecturers(data.lecturer);
+        // setStudentName(data.name)
+        // console.log(data)
+      });
+  }, [tasks]);
 
-  const mdTheme = createTheme();
-  const [open, setOpen] = React.useState(true);
-  const toggleDrawer = () => {
-    setOpen(!open);
-  };
+  const [drawerClickInfo, setDrawerClickInfo] = React.useState("My Tasks");
 
   const avatar = (
     <React.Fragment>
-      <ListItemButton>
+      <ListItemButton
+        onClick={(event) => setDrawerClickInfo(event.target.textContent)}
+      >
         <ListItemIcon>
           <AccountCircleIcon />
         </ListItemIcon>
-        <ListItemText>Lecturer 1</ListItemText>
+        
+        <ListItemText> Student 1</ListItemText>
       </ListItemButton>
     </React.Fragment>
   );
 
   const drawerButtons = (
     <React.Fragment>
-      <ListItemButton>
+      <ListItemButton
+        onClick={(event) => setDrawerClickInfo(event.target.textContent)}
+      >
         <ListItemIcon>
-          <AssignmentIcon />
+          <DashboardIcon />
         </ListItemIcon>
-        <ListItemText primary="My Students" />
+        <ListItemText primary="My Tasks" />
       </ListItemButton>
 
       <Divider sx={{ my: 1 }} />
 
       <ListItemButton
+        onClick={(event) => setDrawerClickInfo(event.target.textContent)}
+      >
+        <ListItemIcon>
+          <AssignmentIcon />
+        </ListItemIcon>
+        <ListItemText primary="My Supervisor" />
+      </ListItemButton>
+
+      <Divider sx={{ my: 1 }} />
+
+      <ListItemButton
+        onClick={(event) => setDrawerClickInfo(event.target.textContent)}
+      >
+        <ListItemIcon>
+          <AssignmentIcon />
+        </ListItemIcon>
+        <ListItemText primary="Lecturer" />
+      </ListItemButton>
+      <Divider sx={{ my: 1 }} />
+
+      <ListItemButton
         onClick={() => {
-          localStorage.removeItem("role");
           setPerson(null);
+          localStorage.removeItem("role");
         }}
       >
         <ListItemIcon>
@@ -79,12 +104,12 @@ function Lecturer({ setPerson }) {
     </React.Fragment>
   );
 
+  const mdTheme = createTheme();
+
   return (
     <ThemeProvider theme={mdTheme}>
-      {/* Main surface for displayed items */}
       <Box sx={{ display: "flex" }}>
-        {/* Left hand side drawer  */}
-        <Drawer variant="permanent" open={open}>
+        <Drawer variant="permanent" open={true}>
           <Toolbar
             sx={{
               display: "flex",
@@ -93,9 +118,8 @@ function Lecturer({ setPerson }) {
               px: [2.3],
             }}
           >
-            <IconButton onClick={toggleDrawer}>
-              {" "}
-              {open ? <ChevronLeftIcon /> : <ChevronRightIcon />}{" "}
+            <IconButton>
+              <ChevronLeftIcon />
             </IconButton>
           </Toolbar>
           <List component="nav"> {avatar} </List>
@@ -115,7 +139,15 @@ function Lecturer({ setPerson }) {
         >
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
-              <LecturerStudents students={students} />
+              {drawerClickInfo === "My Tasks" ? (
+                <StudentTasks tasks={tasks} />
+              ) : drawerClickInfo === "My Supervisor" ? (
+                <StudentSupervisors supervisors={supervisors} />
+              ) : drawerClickInfo === "Lecturer" ? (
+                <StudentLecturers lecturers={lecturers} />
+              ) : (
+                <></>
+              )}
             </Grid>
           </Container>
         </Box>
@@ -124,4 +156,4 @@ function Lecturer({ setPerson }) {
   );
 }
 
-export default Lecturer;
+export default Student;

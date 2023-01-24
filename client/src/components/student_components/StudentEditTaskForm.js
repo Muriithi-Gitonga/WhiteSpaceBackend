@@ -13,22 +13,49 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-export default function StudentEditTaskForm({handleClose}) {
+export default function StudentEditTaskForm({  setEditSuccess,
+  taskId,
+  handleClose}) {
+
+
   const handleSubmit = (event) => {
     event.preventDefault();
+
+
     const data = new FormData(event.currentTarget);
     console.log({
       solution: data.get("solution"),
-      comment: data.get("comment"),
+      comment: data.get("comment")
     })
-    handleClose()
+    console.log("this task has been editted!")
+
     
+    fetch(`tasks/${taskId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        solution: data.get("solution"),
+        comment: data.get("comment")
+      }),
+    })
+    .then((r) => {
+      if(r.ok) { 
+        r.json()
+        .then(setEditSuccess( `Success! Task ${taskId} has been updated`))
+        .then(handleClose())
+      }
+    })
+
   };
+  const handleGoBack = () =>{
+handleClose()  }
   return (
     <Container
       component="main"
       maxWidth="xs"
-      sx={{ border: 2, borderRadius: "5px", backgroundColor: "white" }}
+      sx={{ borderRadius: "5px", backgroundColor: "white" }}
     >
       <Box
         sx={{
@@ -42,9 +69,6 @@ export default function StudentEditTaskForm({handleClose}) {
           Edit Task
         </Typography>
 
-        {/* <Typography  variant="h6" sx={{ color: "black" }}>
-        Title: 
-        </Typography> */}
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -58,17 +82,19 @@ export default function StudentEditTaskForm({handleClose}) {
               />
             </Grid>
 
+          </Grid>
+          <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
                 required
                 fullWidth
-                name="comment"
-                label="Comment"
-                type="comment"
                 id="comment"
+                label="Comment"
+                name="comment"
                 autoComplete="comment"
               />
             </Grid>
+
           </Grid>
           <Button
             type="submit"
@@ -84,7 +110,7 @@ export default function StudentEditTaskForm({handleClose}) {
             fullWidth
             variant="contained"
             sx={{ mb: 2 }}
-            onClick={handleClose}
+            onClick={handleGoBack}
             
           >
             Back to tasks

@@ -1,7 +1,7 @@
 class StudentsController < ApplicationController
     skip_before_action :authorize
     rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
-    skip_before_action :authorize, only:[:login, :create, :index]
+    
     wrap_parameters format: [:json]
 
     def index
@@ -15,7 +15,7 @@ class StudentsController < ApplicationController
         student = Student.create!(student_params)
         token = encode_token({user_id: student.id})
         
-        render json: {lecturer: lecturer, token: token}, status: :created
+        render json: {student: student, token: token}, status: :created
      
     end
 
@@ -25,24 +25,13 @@ class StudentsController < ApplicationController
 
     end
 
+    def destroy
+        student = Student.find(params[:id])
+        student.destroy
+        render json: student
+    end
+
     
-
-    # def login
-    #     student = Student.find_by(params[:username])
-    #     #User#authenticate comes from BCrypt
-    #     if student && student.authenticate(params[:password])
-    #       # encode token comes from ApplicationController
-    #       token = encode_token( student_id: student.id )
-    #       render json: {student:student, token:token}, status: :accepted
-    #     else
-    #       render json: { message: 'Invalid username or password' }, status: :unauthorized
-    #     end
-    # end
-
-
-
-
-
 
     
 

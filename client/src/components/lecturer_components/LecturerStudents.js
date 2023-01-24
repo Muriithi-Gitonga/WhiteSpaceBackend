@@ -4,18 +4,40 @@ import { Typography } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
-import AddIcon from "@mui/icons-material/Add";
 import Box from "@mui/material/Box";
-import CreateStudentForm from "./CreateStudentForm";
+import {  GridToolbar } from '@mui/x-data-grid';
+import StudentTasksGrid from "./StudentTasksGrid";
+import Backdrop from "@mui/material/Backdrop";
 
-// This will be placed in its own component such that the table can receive props. These props will be the JSON data from the backend
-export default function MyStudents({ students }) {
-  function handleDelete(info) {
-    console.log(info);
+
+
+
+export default function LecturerStudents({ students }) {
+
+  const [displayedItem, setDisplayedItem] = React.useState("");
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  
+  function handleView(studentId) {
+    handleOpen();
+
+    displayedItem === ""
+    ? setDisplayedItem(
+        <StudentTasksGrid studentId={studentId} handleClose={handleClose} />
+      )
+    : setDisplayedItem(<StudentTasksGrid studentId={studentId} handleClose={handleClose} />);
   }
  
 
-  const renderDeleteButton = (params) => {
+  const renderViewButton = (params) => {
     return (
       <strong>
         <Button
@@ -23,10 +45,10 @@ export default function MyStudents({ students }) {
           color="primary"
           size="small"
           onClick={(e) => {
-            handleDelete(params.row);
+            handleView(params.row.id);
           }}
         >
-          Delete
+          View
         </Button>
       </strong>
     );
@@ -44,10 +66,10 @@ export default function MyStudents({ students }) {
     { field: "email", headerName: "Email", width: 150 },
     { field: "institution", headerName: "Institution", width: 80 },
     {
-      field: "delete",
-      headerName: "Delete",
-      width: 150,
-      renderCell: renderDeleteButton,
+      field: "tasksReport",
+      headerName: "Tasks Report",
+      width: 200,
+      renderCell: renderViewButton,
       disableClickEventBubbling: true,
     }
   ];
@@ -68,17 +90,7 @@ export default function MyStudents({ students }) {
               My Students{" "}
             </Typography>
           </Box>
-          <Box>
-            <Button
-              sx={{ mb: 2 }}
-              variant="outlined"
-              color="primary"
-              startIcon={<AddIcon />}
-            >
-              {" "}
-              Enroll New Student{" "}
-            </Button>
-          </Box>
+          
         </Box>
 
         <div style={{ height: 685, width: "100%" }}>
@@ -87,8 +99,15 @@ export default function MyStudents({ students }) {
             columns={columns}
             pageSize={10}
             rowsPerPageOptions={[5]}
+            
           />
         </div>
+        <Backdrop
+            sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            open={open}
+          >
+            {displayedItem}
+          </Backdrop>
       </Paper>
     </Grid>
   );

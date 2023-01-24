@@ -49,3 +49,9 @@ Task.create(student_id:3, supervisor_id:1, title: "This is the third task", desc
 Task.create(student_id:1, supervisor_id:1, title: "This is the fourth task", description: "Carry out task four successfully", solution: "I carried out the fourth task.", comment: "This was challenging, but I managed to get it done.", completed: true)
 Task.create(student_id:2, supervisor_id:1, title: "This is the fifth task", description: "Carry out task five successfully", solution: "I carried out the fifth task.", comment: "This was challenging, but I managed to get it done.", completed: true)
 Task.create(student_id:3, supervisor_id:1, title: "This is the sixth task", description: "Carry out task six successfully", solution: "I carried out the sixth task.", comment: "This was challenging, but I managed to get it done.", completed: false)
+
+
+
+
+
+

@@ -5,7 +5,7 @@ class LecturersController < ApplicationController
     # rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
     
     rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
-    skip_before_action :authorize, only:[:login, :create, :index]
+    # skip_before_action :authorize, only:[:login, :create, :index]
 
 
     def index
@@ -29,6 +29,12 @@ class LecturersController < ApplicationController
         
     end
   
+    def destroy
+        lecturer = Lecturer.find(params[:id])
+        lecturer.destroy
+        render json: lecturer 
+
+    end
 
 
     # def index
@@ -57,7 +63,7 @@ class LecturersController < ApplicationController
 # end
     private
     def lecturer_params
-        params.permit(:name, :email, :institution)
+        params.permit(:name, :email, :institution, :email, :password)
     end
 
     # def authorize
