@@ -2,6 +2,7 @@ require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
+  
 
   # In the development environment your application's code is reloaded any time
   # it changes. This slows down response time but is perfect for development
@@ -32,6 +33,8 @@ Rails.application.configure do
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
+
+  config.hosts << "WhiteSpaceBackend-production.up.railway.app"
 
   # Raise exceptions for disallowed deprecations.
   config.active_support.disallowed_deprecation = :raise
