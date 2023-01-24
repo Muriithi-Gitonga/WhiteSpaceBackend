@@ -8,7 +8,6 @@ class CreateTasks < ActiveRecord::Migration[7.0]
       t.belongs_to :student
       t.belongs_to :supervisor
       t.boolean :completed
-      t.text :student_username
 
       t.timestamps
     end

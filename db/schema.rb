@@ -67,7 +67,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_13_101544) do
     t.bigint "student_id"
     t.bigint "supervisor_id"
     t.boolean "completed"
-    t.text "student_username"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["student_id"], name: "index_tasks_on_student_id"
